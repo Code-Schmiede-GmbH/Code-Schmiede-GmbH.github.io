@@ -63,10 +63,10 @@ de: &DEFAULT_DE
   nav:
     - title: "Leistungen"
       section: services
-    - title: "Portfolio"
-      section: portfolio
-    - title: "Blog"
-      section: blog
+    # - title: "Portfolio"
+    #   section: portfolio
+    # - title: "Blog"
+    #   section: blog
     - title: "Über"
       section: about
     # - title: "Timeline"

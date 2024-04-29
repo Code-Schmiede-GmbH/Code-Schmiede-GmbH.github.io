@@ -335,15 +335,15 @@ de: &DEFAULT_DE
     text: "Was wir anbieten."
     section: services
     list:
-      - title: "Cloud development"
+      - title: "Prozess-Automatisierung"
         desc: "Massgeschneiderte Cloud-Software-Entwicklung, auch für KMUs, die Ihre Anforderungen perfekt erfüllt."
         icon: fas fa-cloud #find more at https://fontawesome.com/icons
-      - title: "Mobile development"
+      - title: "Mobile Apps"
         desc: "Innovative und nutzerfreundliche App-Entwicklung für iOS und Android, um Ihre Ideen in erstklassige mobile Anwendungen umzusetzen."
         icon: fas fa-mobile
-      - title: "CMS development"
-        desc: "Aufsetzen und Betreiben von Content Management Systeme inklusive SEO-Optimierung und rasent-schnelle Performance."
-        icon: fas fa-pen
+      - title: "AI Bots"
+        desc: "Entwicklung oder Konfiguration von AI-Systemen mit individuellen Daten oder eingebauten Aktionen."
+        icon: fas fa-robot
 
   portfolio:
     title: "Portfolio"
