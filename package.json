@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && type nul > out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
+    "deploy": "next build && type nul > out/.nojekyll && xcopy /s /e /y out %TEMP%\\gh-pages-temp\\ && git checkout gh-pages && git rm -rf . && git clean -fxd && xcopy /s /e /y %TEMP%\\gh-pages-temp\\* . && rmdir /s /q %TEMP%\\gh-pages-temp && git add . && git commit -m \"Deploy to gh-pages\" && git push origin gh-pages && git checkout main"
   },
   "dependencies": {
     "next": "14.1.3",
