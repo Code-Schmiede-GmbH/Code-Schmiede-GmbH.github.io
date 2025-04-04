@@ -16,9 +16,9 @@ const Navigation = () => {
           <Image
             src="/logo-blue.png"
             alt="Code Schmiede Logo"
-            width={40}
-            height={40}
-            className="object-contain w-auto"
+            width={32}
+            height={32}
+            className="object-contain"
           />
           Code Schmiede
         </Link>

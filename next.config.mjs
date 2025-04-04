@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/Code-Schmiede-GmbH.github.io',
+  basePath: '',
   images: {
     unoptimized: true,
   },
