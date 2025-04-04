@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
+import { useState, FormEvent } from 'react';
 
 const approachSteps = [
   {
@@ -32,6 +33,13 @@ const approachSteps = [
 ];
 
 export default function Home() {
+  const [formStatus, setFormStatus] = useState<{
+    success: boolean;
+    message: string;
+    show: boolean;
+  } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const scrollToContact = () => {
     const contactForm = document.getElementById('contactForm');
     const nameInput = document.getElementById('name');
@@ -39,6 +47,58 @@ export default function Home() {
     contactForm?.scrollIntoView({ behavior: 'smooth' });
     // Small delay to ensure scroll completes before focus
     setTimeout(() => nameInput?.focus(), 800);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('_replyto') as string;
+    const phone = formData.get('phone') as string;
+    const message = formData.get('message') as string;
+
+    let firstName = name;
+    if (firstName.indexOf(' ') >= 0) {
+      firstName = name.split(' ').slice(0, -1).join(' ');
+    }
+
+    try {
+      const response = await fetch('https://papamuffloncontact20231031175711.azurewebsites.net/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message
+        }),
+      });
+
+      if (!response.ok) throw new Error('Network response was not ok');
+
+      setFormStatus({
+        success: true,
+        message: 'Nachricht erfolgreich gesendet.',
+        show: true
+      });
+      e.currentTarget.reset();
+    } catch (error) {
+      setFormStatus({
+        success: false,
+        message: `Sorry ${firstName}, it seems that my mail server is not responding. Please try again later!`,
+        show: true
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputFocus = () => {
+    setFormStatus(null);
   };
 
   return (
@@ -215,7 +275,7 @@ export default function Home() {
           <h2 className="text-4xl font-bold mb-4 text-center">KONTAKT</h2>
           <p className="text-xl text-center text-gray-600 italic mb-12">Lassen Sie uns zusammenarbeiten!</p>
 
-          <form id="contactForm" noValidate method="POST" className="w-full">
+          <form id="contactForm" onSubmit={handleSubmit} noValidate className="w-full">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="form-group">
@@ -226,9 +286,8 @@ export default function Home() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
                     placeholder="Name*"
                     required
-                    data-validation-required-message="Geben Sie einen Namen ein."
+                    onFocus={handleInputFocus}
                   />
-                  <div className="help-block text-red-500 text-sm mt-1"></div>
                 </div>
 
                 <div className="form-group">
@@ -239,9 +298,8 @@ export default function Home() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
                     placeholder="E-Mail*"
                     required
-                    data-validation-required-message="Geben Sie Ihre E-Mail-Addresse ein."
+                    onFocus={handleInputFocus}
                   />
-                  <div className="help-block text-red-500 text-sm mt-1"></div>
                 </div>
 
                 <div className="form-group">
@@ -251,6 +309,7 @@ export default function Home() {
                     name="phone"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
                     placeholder="Telefonnummer"
+                    onFocus={handleInputFocus}
                   />
                 </div>
               </div>
@@ -262,9 +321,8 @@ export default function Home() {
                   className="w-full h-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
                   placeholder="Nachricht*"
                   required
-                  data-validation-required-message="Schreiben Sie etwas..."
+                  onFocus={handleInputFocus}
                 />
-                <div className="help-block text-red-500 text-sm mt-1"></div>
               </div>
             </div>
 
@@ -273,13 +331,22 @@ export default function Home() {
             <input type="text" name="_gotcha" className="hidden" />
 
             <div className="mt-8 text-center">
-              <div id="success"></div>
+              {formStatus && (
+                <div id="success" className={`mb-4 ${formStatus.success ? 'text-green-600' : 'text-red-600'}`}>
+                  <div className={`alert ${formStatus.success ? 'alert-success' : 'alert-danger'} p-4 rounded-md ${formStatus.success ? 'bg-green-50' : 'bg-red-50'}`}>
+                    <strong>{formStatus.message}</strong>
+                  </div>
+                </div>
+              )}
               <button
                 id="sendMessageButton"
                 type="submit"
-                className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition-colors text-uppercase"
+                disabled={isSubmitting}
+                className={`bg-blue-500 text-white px-8 py-3 rounded-md transition-colors ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+                }`}
               >
-                Nachricht absenden
+                {isSubmitting ? 'Sending...' : 'Nachricht absenden'}
               </button>
             </div>
           </form>
