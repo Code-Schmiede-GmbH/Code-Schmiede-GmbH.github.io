@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && type nul > out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git push origin `git subtree split --prefix out main`:gh-pages --force"
+    "deploy": "next build && type nul > out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git push origin HEAD:gh-pages --force"
   },
   "dependencies": {
     "next": "14.1.3",
