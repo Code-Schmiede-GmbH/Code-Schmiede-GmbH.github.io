@@ -78,6 +78,8 @@ export default function Home() {
         }),
       });
 
+      console.log(response);
+
       if (response.status !== 200) throw new Error('Network response was not ok');
 
       setFormStatus({
