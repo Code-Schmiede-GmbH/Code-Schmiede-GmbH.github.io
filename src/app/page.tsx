@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 
 const approachSteps = [
   {
@@ -39,6 +39,7 @@ export default function Home() {
     show: boolean;
   } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const scrollToContact = () => {
     const contactForm = document.getElementById('contactForm');
@@ -80,17 +81,13 @@ export default function Home() {
 
       if (!response.ok) throw new Error('Network response was not ok');
 
-      console.log('all good!');
-
       setFormStatus({
         success: true,
         message: 'Nachricht erfolgreich gesendet.',
         show: true
       });
 
-      console.log('resetting form');
-      e.currentTarget.reset();
-      console.log('form reset');
+      formRef.current?.reset();
     } catch (error) {
       console.error('Error sending message:', error);
       setFormStatus({
@@ -281,7 +278,7 @@ export default function Home() {
           <h2 className="text-4xl font-bold mb-4 text-center">KONTAKT</h2>
           <p className="text-xl text-center text-gray-600 italic mb-12">Lassen Sie uns zusammenarbeiten!</p>
 
-          <form id="contactForm" onSubmit={handleSubmit} noValidate className="w-full">
+          <form id="contactForm" ref={formRef} onSubmit={handleSubmit} noValidate className="w-full">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-6">
                 <div className="form-group">
