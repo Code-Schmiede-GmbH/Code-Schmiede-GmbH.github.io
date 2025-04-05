@@ -111,7 +111,7 @@ export default function Home() {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section id="home" className="max-w-7xl mx-auto px-4 py-12">
+        <section id="home" className="mx-auto px-4 py-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -139,7 +139,7 @@ export default function Home() {
                 alt="Developer"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain"
+                className="object-contain object-right"
               />
             </div>
           </div>
