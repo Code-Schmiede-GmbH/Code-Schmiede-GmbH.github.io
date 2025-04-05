@@ -78,17 +78,21 @@ export default function Home() {
         }),
       });
 
-      console.log(response);
+      if (!response.ok) throw new Error('Network response was not ok');
 
-      if (response.status !== 200) throw new Error('Network response was not ok');
+      console.log('all good!');
 
       setFormStatus({
         success: true,
         message: 'Nachricht erfolgreich gesendet.',
         show: true
       });
+
+      console.log('resetting form');
       e.currentTarget.reset();
+      console.log('form reset');
     } catch (error) {
+      console.error('Error sending message:', error);
       setFormStatus({
         success: false,
         message: `Sorry ${firstName}, it seems that my mail server is not responding. Please try again later!`,
