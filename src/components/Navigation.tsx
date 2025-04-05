@@ -1,16 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Navigation = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   const menuItems = [
-    { label: "Home", href: "#home" },
     { label: "Ansatz", href: "#approach" },
     { label: "Leistungen", href: "#services" },
     { label: "Kontakt", href: "#contact" },
   ];
 
   return (
-    <nav className="p-4 max-w-7xl mx-auto">
+    <nav className="p-4 max-w-7xl">
       <div className="flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold flex items-center gap-2">
           <Image
@@ -24,13 +29,13 @@ const Navigation = () => {
         </Link>
         <div className="hidden md:flex space-x-8">
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.href}
-              href={item.href}
+              href={isHomePage ? item.href : `/${item.href}`}
               className="text-gray-800 hover:text-gray-600 transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
