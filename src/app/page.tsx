@@ -4,6 +4,7 @@ import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState, FormEvent, useRef } from 'react';
+import DevIllustration from "../components/DevIllustration";
 
 const approachSteps = [
   {
@@ -133,14 +134,8 @@ export default function Home() {
                 Kontakt aufnehmen
               </button>
             </div>
-            <div className="relative h-[400px]">
-              <Image
-                src="/dev.png"
-                alt="Developer"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain object-right"
-              />
+            <div className="relative flex justify-end">
+              <DevIllustration />
             </div>
           </div>
         </section>

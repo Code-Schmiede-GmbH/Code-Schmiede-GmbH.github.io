@@ -11,6 +11,7 @@
     "deploy": "next build && type nul > out/.nojekyll && copy CNAME out\\ && xcopy /s /e /y out %TEMP%\\gh-pages-temp\\ && git checkout gh-pages && git rm -rf . && git clean -fxd && xcopy /s /e /y %TEMP%\\gh-pages-temp\\* . && rmdir /s /q %TEMP%\\gh-pages-temp && git add . && git commit -m \"Deploy to gh-pages\" && git push origin gh-pages && git checkout main"
   },
   "dependencies": {
+    "framer-motion": "^12.6.3",
     "next": "14.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -26,4 +27,4 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
   }
-} 
+}
