@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useState, FormEvent, useRef } from 'react';
 import DevIllustration from "../components/DevIllustration";
 
 const approachSteps = [
@@ -35,14 +34,6 @@ const approachSteps = [
 ];
 
 export default function Home() {
-  const [formStatus, setFormStatus] = useState<{
-    success: boolean;
-    message: string;
-    show: boolean;
-  } | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
-
   const scrollToContact = () => {
     const contactForm = document.getElementById('contactForm');
     const nameInput = document.getElementById('name');
@@ -50,60 +41,6 @@ export default function Home() {
     contactForm?.scrollIntoView({ behavior: 'smooth' });
     // Small delay to ensure scroll completes before focus
     setTimeout(() => nameInput?.focus(), 800);
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get('name') as string;
-    const email = formData.get('_replyto') as string;
-    const phone = formData.get('phone') as string;
-    const message = formData.get('message') as string;
-
-    let firstName = name;
-    if (firstName.indexOf(' ') >= 0) {
-      firstName = name.split(' ').slice(0, -1).join(' ');
-    }
-
-    try {
-      const response = await fetch('https://papamuffloncontact20231031175711.azurewebsites.net/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message
-        }),
-      });
-
-      if (!response.ok) throw new Error('Network response was not ok');
-
-      setFormStatus({
-        success: true,
-        message: 'Nachricht erfolgreich gesendet.',
-        show: true
-      });
-
-      formRef.current?.reset();
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setFormStatus({
-        success: false,
-        message: `Sorry ${firstName}, it seems that my mail server is not responding. Please try again later!`,
-        show: true
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputFocus = () => {
-    setFormStatus(null);
   };
 
   return (
@@ -275,78 +212,50 @@ export default function Home() {
             <h2 className="text-4xl font-bold mb-4 text-center">KONTAKT</h2>
             <p className="text-xl text-center text-gray-600 italic mb-12">Lassen Sie uns zusammenarbeiten!</p>
 
-            <form id="contactForm" ref={formRef} onSubmit={handleSubmit} noValidate className="w-full">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-6">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
-                      placeholder="Name*"
-                      required
-                      onFocus={handleInputFocus}
-                    />
-                  </div>
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" className="w-full">
+              <input type="hidden" name="access_key" value="5e230ecf-a57b-4d22-bc0b-9372c1d15108" />
+              
+              <div className="space-y-6">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
+                    placeholder="Name*"
+                    required
+                  />
+                </div>
 
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      id="email"
-                      name="_replyto"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
-                      placeholder="E-Mail*"
-                      required
-                      onFocus={handleInputFocus}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
-                      placeholder="Telefonnummer"
-                      onFocus={handleInputFocus}
-                    />
-                  </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
+                    placeholder="E-Mail*"
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <textarea
                     id="message"
                     name="message"
-                    className="w-full h-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
+                    rows={6}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent form-control"
                     placeholder="Nachricht*"
                     required
-                    onFocus={handleInputFocus}
                   />
                 </div>
               </div>
 
-              <input type="hidden" name="_subject" id="email-subject" value="Kontakt-Formular Bestätigung" />
-              <input type="hidden" name="_next" value="#" />
-              <input type="text" name="_gotcha" className="hidden" />
-
               <div className="mt-8 text-center">
-                {formStatus && (
-                  <div id="success" className={`mb-4 ${formStatus.success ? 'text-green-600' : 'text-red-600'}`}>
-                    <div className={`alert ${formStatus.success ? 'alert-success' : 'alert-danger'} p-4 rounded-md ${formStatus.success ? 'bg-green-50' : 'bg-red-50'}`}>
-                      <strong>{formStatus.message}</strong>
-                    </div>
-                  </div>
-                )}
                 <button
-                  id="sendMessageButton"
                   type="submit"
-                  disabled={isSubmitting}
-                  className={`bg-blue-500 text-white px-8 py-3 rounded-md transition-colors ${
-                    isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
-                  }`}
+                  className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition-colors"
                 >
-                  {isSubmitting ? 'Sending...' : 'Nachricht absenden'}
+                  Nachricht absenden
                 </button>
               </div>
             </form>
