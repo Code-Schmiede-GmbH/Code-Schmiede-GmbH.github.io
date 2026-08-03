@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Manrope({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Code Schmiede",
-  description: "Hochwertige Software, erschwinglich entwickelt.",
+  title: "Code Schmiede – Individuelle Software für Schweizer Unternehmen",
+  description:
+    "Code Schmiede entwickelt individuelle Softwarelösungen für Schweizer Unternehmen – von internen Anwendungen bis zu KI-gestützten Automatisierungen.",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -48,9 +49,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body className={inter.className}>
-        <main className="min-h-screen">{children}</main>
+      <body className={`${manrope.className} bg-sand text-anthracite antialiased`}>
+        {children}
       </body>
     </html>
   );
-} 
+}
