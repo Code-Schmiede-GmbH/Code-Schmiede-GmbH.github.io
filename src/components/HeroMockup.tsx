@@ -91,7 +91,7 @@ export default function HeroMockup() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:grid sm:grid-cols-[auto_1fr]">
+        <div className="flex flex-col sm:grid sm:grid-cols-[auto_minmax(0,1fr)]">
           {/* Reiter: mobil horizontal, ab sm als Seitennavigation */}
           <div
             role="tablist"

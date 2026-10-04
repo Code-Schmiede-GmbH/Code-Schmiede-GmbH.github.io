@@ -40,7 +40,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="mx-auto grid max-w-content items-center gap-14 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-16">
         <div>
           <motion.h1
             {...fadeIn(0)}
