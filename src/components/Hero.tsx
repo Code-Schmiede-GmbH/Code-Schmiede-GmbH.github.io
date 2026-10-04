@@ -36,22 +36,14 @@ export default function Hero() {
         <DataLines className="absolute bottom-0 left-0 h-56 w-full md:h-64 lg:w-[68%]" />
         <ForgedHex
           glow={[3, 4]}
-          className="absolute hidden md:-right-24 md:block lg:-right-20 top-0 w-[36rem] opacity-50 lg:top-10 lg:w-[42rem] lg:opacity-100"
+          className="absolute -right-56 -top-16 w-[30rem] opacity-30 md:-right-24 md:top-0 md:w-[36rem] md:opacity-50 lg:-right-20 lg:top-10 lg:w-[42rem] lg:opacity-100"
         />
       </div>
 
       <div className="mx-auto grid max-w-content items-center gap-14 lg:grid-cols-2 lg:gap-16">
         <div>
-          <motion.p
-            {...fadeIn(0)}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-sand-300 bg-white/80 px-4 backdrop-blur-sm py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
-          >
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-ember" />
-            Technologiepartner für Schweizer KMU
-          </motion.p>
-
           <motion.h1
-            {...fadeIn(0.08)}
+            {...fadeIn(0)}
             className="text-4xl font-extrabold leading-[1.08] tracking-tight md:text-5xl lg:text-6xl"
           >
             Software, die sich exakt an Ihre{" "}
@@ -59,7 +51,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
-            {...fadeIn(0.16)}
+            {...fadeIn(0.08)}
             className="mt-7 max-w-xl text-lg leading-relaxed text-ink-muted md:text-xl"
           >
             Code Schmiede entwickelt individuelle Softwarelösungen für Schweizer
@@ -68,7 +60,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            {...fadeIn(0.24)}
+            {...fadeIn(0.16)}
             className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
             <button
@@ -93,7 +85,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            {...fadeIn(0.32)}
+            {...fadeIn(0.24)}
             className="mt-10 flex items-center gap-3 border-t border-sand-300 pt-6"
           >
             <Portrait
