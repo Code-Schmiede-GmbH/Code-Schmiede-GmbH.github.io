@@ -169,10 +169,6 @@ export default function HeroMockup() {
                         <Pill tone="muted">{pendingStates[pending]}</Pill>
                       </button>
                     </div>
-                    <Caption>
-                      Tipp: Der letzte Auftrag lässt sich anklicken. Bewegt hat
-                      sich trotzdem nichts.
-                    </Caption>
                   </>
                 )}
 
