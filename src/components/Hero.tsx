@@ -36,7 +36,7 @@ export default function Hero() {
         <DataLines className="absolute bottom-0 left-0 h-56 w-full md:h-64 lg:w-[68%]" />
         <ForgedHex
           glow={[3, 4]}
-          className="absolute -right-56 -top-16 w-[30rem] opacity-30 md:-right-24 md:top-0 md:w-[36rem] md:opacity-50 lg:-right-20 lg:top-10 lg:w-[42rem] lg:opacity-100"
+          className="absolute -right-48 -top-16 w-[30rem] opacity-50 md:-right-24 md:top-0 md:w-[36rem] md:opacity-100 lg:-right-20 lg:top-10 lg:w-[42rem]"
         />
       </div>
 
