@@ -1,0 +1,40 @@
+/* styles.css */
+
+/* Primary Color: Royal Blue */
+.header {
+    background-color: #0047AB;
+}
+
+/* Secondary Color: Light Gray */
+body {
+    background-color: #E5E5E5;
+}
+
+/* Accent Color: Teal */
+.cta-button {
+    background-color: #008080;
+    color: #FFFFFF;
+}
+
+/* Text Color: Dark Charcoal */
+h1, p {
+    color: #333333;
+}
+
+/* Error/Warning Color: Red */
+.error-message {
+    color: #FF0000;
+}
+
+/* Success Color: Green */
+.success-message {
+    color: #008000;
+}
+
+/* Footer Color: Dark Navy */
+.footer {
+    background-color: #001F3F;
+    color: #FFFFFF;
+}
+
+@import "layout/blog.scss";

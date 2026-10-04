@@ -1,10 +1,12 @@
 import Section from "./Section";
 import Reveal from "./Reveal";
 import Portrait from "./Portrait";
+import Card from "./Card";
+import DataLines from "./DataLines";
 import { contact } from "@/content/landing";
 
 const fieldClasses =
-  "w-full rounded-lg border border-sand-300 bg-sand/40 px-4 py-3 text-anthracite placeholder:text-ink-subtle transition-colors focus:border-copper focus:bg-white focus:outline-none focus:ring-2 focus:ring-copper/25";
+  "w-full rounded-lg border border-sand-300 bg-sand/40 px-4 py-3 text-anthracite placeholder:text-ink-subtle transition-colors focus:border-ember focus:bg-white focus:outline-none focus:ring-2 focus:ring-ember/20";
 
 export default function Contact() {
   return (
@@ -13,11 +15,15 @@ export default function Contact() {
       eyebrow="Kontakt"
       title="Erzählen Sie uns von Ihrem Vorhaben."
       lead="Gemeinsam finden wir die passende Softwarelösung für Ihre Herausforderung."
+      className="bg-sand-200/50"
+      backdrop={
+        <DataLines className="absolute bottom-0 left-0 h-[28rem] w-full md:w-3/4" />
+      }
     >
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
         {/* Ansprechpartner */}
         <Reveal>
-          <div className="flex h-full flex-col rounded-xl2 border border-sand-300 bg-white p-8 shadow-card">
+          <Card className="flex h-full flex-col">
             <div className="flex items-center gap-5">
               <Portrait
                 crop="bust"
@@ -37,12 +43,12 @@ export default function Contact() {
               </p>
               <a
                 href={`mailto:${contact.email}`}
-                className="mt-2 inline-block font-semibold text-copper transition-colors hover:text-copper-600"
+                className="mt-2 inline-block font-semibold text-ember-600 transition-colors hover:text-ember-700"
               >
                 {contact.email}
               </a>
             </div>
-          </div>
+          </Card>
         </Reveal>
 
         {/* Formular */}
@@ -51,7 +57,7 @@ export default function Contact() {
             id="contactForm"
             action="https://api.web3forms.com/submit"
             method="POST"
-            className="rounded-xl2 border border-sand-300 bg-white p-8 shadow-card"
+            className="rounded-xl2 border border-sand-300 bg-white/90 p-8 shadow-card"
           >
             <input
               type="hidden"
@@ -115,7 +121,7 @@ export default function Contact() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <button
                 type="submit"
-                className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-anthracite px-7 py-3.5 text-base font-semibold text-sand transition-colors hover:bg-anthracite-800"
+                className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-anthracite px-7 py-3.5 text-base font-semibold text-sand transition-all hover:bg-anthracite-800 hover:shadow-ember"
               >
                 Projekt besprechen
               </button>

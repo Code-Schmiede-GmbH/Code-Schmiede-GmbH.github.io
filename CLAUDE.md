@@ -36,10 +36,16 @@ The homepage is a composition of section components, not one file:
 
 - `src/app/page.tsx` — server component that stacks `Hero → Services → Projects → WhyUs → Contact` between `Navigation` and `Footer`.
 - `src/content/landing.ts` — **all marketing copy** (services, projects, reasons, contact details, nav items). Change wording here, not in JSX.
-- `src/components/Section.tsx` — layout primitive every section uses: `id`, eyebrow/title/lead header, consistent `py`/`max-w-content`, and a `tone="dark"` variant.
-- `src/components/Reveal.tsx` — the single scroll-in animation wrapper (framer-motion `whileInView`, respects `prefers-reduced-motion`). Use it instead of ad-hoc `motion.div`s.
+- `src/components/Section.tsx` — layout primitive every section uses: `id`, eyebrow/title/lead header (eyebrow carries a small hex glyph), consistent `py`/`max-w-content`, and an optional `backdrop` slot for decoration rendered absolutely behind the content (the section clips it with `overflow-hidden`). There is **no dark variant anymore** — the design deliberately avoids dark backgrounds; `WhyUs` and `Footer` used to be anthracite and are now light.
+- `src/components/Card.tsx` — the white card surface used by Services, Projects and Contact. `interactive` adds the hover lift and the glowing orange top edge.
+- `src/components/Reveal.tsx` — the single scroll-in animation wrapper (framer-motion `whileInView`, respects `prefers-reduced-motion`). Use it instead of ad-hoc `motion.div`s. Under reduced motion it still renders a `motion.div` with an animate target and `duration: 0`: the static HTML already contains `opacity: 0`, so swapping in a plain element (or dropping `animate`, as `Hero`'s `fadeIn` once did) leaves content permanently invisible.
 - `src/components/HeroMockup.tsx` — the hero visual: an abstract app window built from markup and SVG, no image file.
 - `src/components/Navigation.tsx` — client component. Menu entries are hash anchors defined in `landing.ts`; it prefixes them with `/` when `usePathname()` isn't `/`, so the section ids passed to `Section` and the `navItems` hrefs must stay in sync. The mobile panel is a plain CSS `max-height`/`opacity` transition — deliberately not `AnimatePresence`.
+- **Visual system** ("Minimalist Swiss Tech"): off-white space, restrained red-orange accents, a recurring hexagon/"C" motif and fine data lines. All decorative pieces are inline SVG, `aria-hidden`, and placed via `className`:
+  - `HexMark.tsx` — the logo mark: pointy-top hexagon open on the right (a "C") with an orange core. Used by `Wordmark` and at small size in the section eyebrows. Same geometry as `public/logo.svg`.
+  - `ForgedHex.tsx` — the large bevelled 3D hexagon frame (depth from per-face shading, no perspective). `open` drops the right flank to make it a "C"; `glow` picks which inner edges glow orange. Used in Hero, WhyUs, Footer.
+  - `DataLines.tsx` — fanned bundle of thin curves sweeping bottom-left → top-right, faded out to the right; `flip` mirrors it. Two accent lines animate via the `.data-flow` class in `globals.css` (stopped by the reduced-motion rule). Used in Hero, Projects, Contact.
+  Keep the accent sparse and the backgrounds light; no neon, dark sections, blue glows or heavy 3D.
 - `src/components/LegalPage.tsx` — shared shell for `/impressum` and `/legal`. It styles the legal text through child selectors (`[&_h2]:…`), so those pages hold near-unformatted markup. Their content is the company's real registered address, CHE number and DSG text — edit wording only when asked.
 - `src/components/DevIllustration.tsx` — the old hand-traced SVG illustration. **No longer imported anywhere**; kept only in case the artwork is wanted again.
 
@@ -48,8 +54,8 @@ Constraints that follow from the static export: no route handlers, no server-sid
 ## Conventions
 
 - Site copy is German; keep new user-facing text German and match the existing formal *Sie* tone. Positioning: technology partner for Swiss SMEs, benefit before technology, no startup hype.
-- Tailwind only, no CSS modules. The palette lives in `tailwind.config.ts`: `anthracite` `#1C1C1C`, `copper` `#B87333`, `sand` `#F5F5F0`, plus `ink.muted`/`ink.subtle` for text. Typeface is Manrope. Base background and the reduced-motion/focus rules are in `src/app/globals.css`.
+- Tailwind only, no CSS modules. The palette lives in `tailwind.config.ts`: `anthracite` `#1C1C1C`, `ember` `#E2571E` (red-orange accent; `ember-600` for small text), `sand` `#F7F7F4` (off-white), `silver` for lines, plus `ink.muted`/`ink.subtle` for text. Typeface is Manrope. Base background and the reduced-motion/focus rules are in `src/app/globals.css`.
 - `@/*` maps to `src/*`.
-- Assets live in `public/` and are referenced by absolute path; `basePath` is empty because the site is served from a custom domain apex. Most of the older PNG/SVG assets (`flags.png`, `idea.png`, `cloud.svg`, `logo-*.png`, …) are unreferenced since the redesign — the favicons still are.
+- Assets live in `public/` and are referenced by absolute path; `basePath` is empty because the site is served from a custom domain apex. `public/logo.svg` is the master of the hex-C mark; the favicons, touch/Android icons, `mstile-150x150.png` and `safari-pinned-tab.svg` are all rendered from it — regenerate them if the mark changes, there is no build step for that.
 - `npm run lint` cannot run: there is no ESLint config in the repo, so `next lint` drops into its interactive setup prompt. `next build` type-checks regardless.
 - `docker-compose.yml` (jekyll-serve) is a leftover from the site's pre-Next.js incarnation and is unused.

@@ -1,5 +1,7 @@
 import Section from "./Section";
 import Reveal from "./Reveal";
+import Card from "./Card";
+import DataLines from "./DataLines";
 import { projects } from "@/content/landing";
 
 export default function Projects() {
@@ -9,13 +11,16 @@ export default function Projects() {
       eyebrow="Referenzen"
       title="Ausgewählte Lösungen"
       lead="Unterschiedliche Branchen, unterschiedliche Anforderungen – verbunden durch denselben Ansatz: verstehen, entwickeln, vereinfachen."
-      className="bg-sand-200/60"
+      className="bg-sand-200/50"
+      backdrop={
+        <DataLines flip className="absolute -top-10 right-0 h-[26rem] w-full opacity-60 md:w-2/3" />
+      }
     >
       <div className="grid gap-6 md:grid-cols-3 md:gap-8">
         {projects.map((project, index) => (
           <Reveal key={project.title} delay={index * 0.1}>
-            <article className="flex h-full flex-col rounded-xl2 border border-sand-300 bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-copper-300 hover:shadow-card-hover">
-              <span className="text-xs font-semibold tracking-[0.2em] text-copper">
+            <Card as="article" interactive className="flex h-full flex-col">
+              <span className="text-xs font-semibold tracking-[0.2em] text-ember-600">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
@@ -31,7 +36,7 @@ export default function Projects() {
                   <li key={benefit} className="flex items-start gap-3 text-sm">
                     <svg
                       viewBox="0 0 20 20"
-                      className="mt-0.5 h-4 w-4 shrink-0 text-copper"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-ember-600"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -49,7 +54,7 @@ export default function Projects() {
               <p className="mt-auto pt-8 text-xs text-ink-subtle">
                 {project.technologies.join(" · ")}
               </p>
-            </article>
+            </Card>
           </Reveal>
         ))}
       </div>

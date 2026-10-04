@@ -24,7 +24,7 @@ export default function LegalPage({ title, children }: LegalPageProps) {
           </h1>
           <div
             className="mt-12 space-y-10
-              [&_a:hover]:text-copper-600 [&_a]:font-medium [&_a]:text-copper [&_a]:transition-colors
+              [&_a:hover]:text-ember-700 [&_a]:font-medium [&_a]:text-ember-600 [&_a]:transition-colors
               [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-anthracite
               [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-anthracite
               [&_li]:leading-relaxed

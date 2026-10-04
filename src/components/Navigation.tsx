@@ -55,7 +55,7 @@ export default function Navigation() {
           ))}
           <Link
             href={hrefFor("#kontakt")}
-            className="rounded-lg bg-anthracite px-5 py-2.5 text-sm font-semibold text-sand transition-colors hover:bg-anthracite-800"
+            className="rounded-lg bg-anthracite px-5 py-2.5 text-sm font-semibold text-sand transition-all hover:bg-anthracite-800 hover:shadow-ember"
           >
             Projekt besprechen
           </Link>

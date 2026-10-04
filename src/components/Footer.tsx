@@ -1,16 +1,23 @@
 import Link from "next/link";
 import Wordmark from "./Wordmark";
+import ForgedHex from "./ForgedHex";
 import { contact } from "@/content/landing";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-anthracite px-6 py-14 text-sand/70">
+    <footer className="relative isolate overflow-hidden border-t border-sand-300 bg-sand px-6 py-14 text-ink-muted">
+      <ForgedHex
+        open
+        glow={[4]}
+        className="absolute -bottom-52 -right-64 -z-10 w-[28rem] opacity-60"
+      />
+
       <div className="mx-auto max-w-content">
-        <div className="flex flex-col gap-8 border-b border-sand/15 pb-10 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-8 border-b border-sand-300 pb-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <Wordmark tone="light" />
+            <Wordmark />
             <p className="mt-4 text-sm leading-relaxed">
               Individuelle Software für Schweizer Unternehmen. Persönlich betreut,
               skalierbar durch ein erfahrenes europäisches Entwicklernetzwerk.
@@ -20,7 +27,7 @@ export default function Footer() {
           <div className="flex flex-col gap-3 text-sm md:items-end">
             <a
               href={`mailto:${contact.email}`}
-              className="font-semibold text-sand transition-colors hover:text-copper-300"
+              className="font-semibold text-anthracite transition-colors hover:text-ember-600"
             >
               {contact.email}
             </a>
@@ -31,13 +38,10 @@ export default function Footer() {
         <div className="flex flex-col gap-4 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>© {currentYear} Code Schmiede GmbH. Alle Rechte vorbehalten.</p>
           <div className="flex gap-6">
-            <Link
-              href="/impressum"
-              className="transition-colors hover:text-copper-300"
-            >
+            <Link href="/impressum" className="transition-colors hover:text-ember-600">
               Impressum
             </Link>
-            <Link href="/legal" className="transition-colors hover:text-copper-300">
+            <Link href="/legal" className="transition-colors hover:text-ember-600">
               Datenschutz
             </Link>
           </div>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       {
         rel: "mask-icon",
         url: "/safari-pinned-tab.svg",
-        color: "#5bbad5"
+        color: "#E2571E"
       },
       {
         rel: "android-chrome",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   other: {
-    "msapplication-TileColor": "#da532c",
+    "msapplication-TileColor": "#F7F7F4",
     "msapplication-config": "/browserconfig.xml"
   }
 };

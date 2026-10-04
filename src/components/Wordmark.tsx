@@ -1,32 +1,21 @@
+import HexMark from "./HexMark";
+
 type WordmarkProps = {
-  /** "dark" = Anthrazit-Schrift auf hellem Grund, "light" = umgekehrt */
-  tone?: "dark" | "light";
   size?: "sm" | "md";
   className?: string;
 };
 
 const sizes = {
-  sm: "text-lg",
-  md: "text-xl",
+  sm: { text: "text-lg", mark: "h-5 w-5" },
+  md: { text: "text-xl", mark: "h-6 w-6" },
 };
 
-const tones = {
-  dark: "text-anthracite",
-  light: "text-sand",
-};
-
-export default function Wordmark({
-  tone = "dark",
-  size = "md",
-  className = "",
-}: WordmarkProps) {
+export default function Wordmark({ size = "md", className = "" }: WordmarkProps) {
   return (
     <span
-      className={`inline-flex items-baseline gap-2 font-extrabold tracking-tight ${sizes[size]} ${tones[tone]} ${className}`}
+      className={`inline-flex items-center gap-2.5 font-extrabold tracking-tight text-anthracite ${sizes[size].text} ${className}`}
     >
-      <span aria-hidden="true" className="text-copper">
-        {"{ }"}
-      </span>
+      <HexMark className={sizes[size].mark} />
       Code Schmiede
     </span>
   );

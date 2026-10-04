@@ -73,19 +73,14 @@ export default function HeroMockup() {
 
   return (
     <div className="relative w-full max-w-[32rem]">
-      <div
-        aria-hidden="true"
-        className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-br from-copper-50 via-sand to-sand-300 opacity-70 blur-2xl"
-      />
-
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="overflow-hidden rounded-xl2 border border-sand-300 bg-white shadow-card"
+        className="overflow-hidden rounded-xl2 border border-white/80 bg-white/85 shadow-card-hover ring-1 ring-sand-300/70 backdrop-blur-md"
       >
         {/* Fensterleiste */}
-        <div className="flex items-center gap-3 border-b border-sand-200 bg-sand px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-sand-200 bg-sand/70 px-4 py-3">
           <div className="flex gap-1.5" aria-hidden="true">
             <span className="h-2.5 w-2.5 rounded-full bg-sand-300" />
             <span className="h-2.5 w-2.5 rounded-full bg-sand-300" />
@@ -123,7 +118,7 @@ export default function HeroMockup() {
                   <span
                     aria-hidden="true"
                     className={`h-4 w-1 rounded-full transition-colors ${
-                      active ? "bg-copper" : "bg-sand-300"
+                      active ? "bg-ember" : "bg-sand-300"
                     }`}
                   />
                   {item.label}
@@ -153,7 +148,7 @@ export default function HeroMockup() {
                         <span className="text-[12px] font-medium text-anthracite">
                           Meier AG · Sondermaschine
                         </span>
-                        <Pill tone="copper">In Produktion</Pill>
+                        <Pill tone="ember">In Produktion</Pill>
                       </div>
                       <div className={rowClasses}>
                         <span className="text-[12px] font-medium text-anthracite">
@@ -184,10 +179,10 @@ export default function HeroMockup() {
                 {tab === "produktion" && (
                   <>
                     <PanelHead eyebrow="Produktion" title="Laufende Aufträge">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-copper-50 px-2.5 py-1 text-[11px] font-semibold text-copper-600">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-ember-50 px-2.5 py-1 text-[11px] font-semibold text-ember-600">
                         <motion.span
                           aria-hidden="true"
-                          className="h-1.5 w-1.5 rounded-full bg-copper"
+                          className="h-1.5 w-1.5 rounded-full bg-ember"
                           animate={
                             reduceMotion ? undefined : { opacity: [1, 0.35, 1] }
                           }
@@ -217,7 +212,7 @@ export default function HeroMockup() {
                         label="Automatisiert"
                         display={`${automation.value} %`}
                         fill={automation.value}
-                        tone="copper"
+                        tone="ember"
                       />
                     </div>
 
@@ -255,7 +250,7 @@ export default function HeroMockup() {
                           <span
                             aria-hidden="true"
                             className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                              tidy ? "bg-copper" : "bg-sand-300"
+                              tidy ? "bg-ember" : "bg-sand-300"
                             }`}
                           />
                           <span className="truncate">{file}</span>
@@ -370,11 +365,11 @@ function Pill({
   tone = "neutral",
 }: {
   children: React.ReactNode;
-  tone?: "neutral" | "copper" | "muted";
+  tone?: "neutral" | "ember" | "muted";
 }) {
   const tones = {
     neutral: "bg-sand-200 text-ink-muted",
-    copper: "bg-copper-50 text-copper-600",
+    ember: "bg-ember-50 text-ember-600",
     muted: "bg-sand-200 text-ink-subtle",
   };
   return (
@@ -398,7 +393,7 @@ function Bar({
   display: string;
   /** Balkenlänge in Prozent */
   fill: number;
-  tone: "dark" | "copper";
+  tone: "dark" | "ember";
   /** Optionaler Zusatz, z. B. die eingesparten Tage */
   hint?: string;
 }) {
@@ -409,14 +404,14 @@ function Bar({
       <div className="mb-1.5 flex items-center justify-between gap-2 text-[11px]">
         <span className="font-medium text-ink-muted">{label}</span>
         <span className="flex items-baseline gap-1.5">
-          {hint && <span className="font-semibold text-copper">{hint}</span>}
+          {hint && <span className="font-semibold text-ember-600">{hint}</span>}
           <span className="font-semibold text-anthracite">{display}</span>
         </span>
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-sand-200">
         <motion.div
           className={`h-full rounded-full ${
-            tone === "dark" ? "bg-anthracite" : "bg-copper"
+            tone === "dark" ? "bg-anthracite" : "bg-ember"
           }`}
           initial={reduceMotion ? false : { width: 0 }}
           animate={{ width: `${fill}%` }}
